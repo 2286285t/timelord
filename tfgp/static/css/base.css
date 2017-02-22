@@ -1,0 +1,9 @@
+html{height: 100%;}
+body {height: 100%; font-family: Verdana; font-size: 1em; background: linear-gradient(to bottom, #3853a1, white);background-repeat: no-repeat}
+
+
+div {background-color: #FFFFFF; width: 90%; text-align: left; padding:1.1em; border-style: solid; border-width: 1px; border-radius: 5px;}
+div.middle{display:flex; flex-direction:row;}
+div.left {background-color: #99ccff; width: 30%; text-align: left; padding:1.1em;}
+div.right {width:70%; padding:2em;}
+i.iname {color: #000099}

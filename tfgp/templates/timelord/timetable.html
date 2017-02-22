@@ -1,0 +1,21 @@
+{% extends 'timelord/base.html' %}
+{% load staticfiles %}
+
+{% block title_block%}Timetable{% endblock %}
+
+{% block top_bar%}
+Welcome to your Timelord timetable, <strong>{{ username }}</strong>!<br />
+{% endblock %}
+
+{% block side_bar %}
+	<ul>
+		<li><a href="{% url 'logout' %}">Logout</a></li>
+	</ul>
+{% endblock %}
+
+{% block body_block %}
+<div>
+<strong> <i class = "iname">{{ username }}</i>'s timetable will go here</strong><br />
+<img src="{% static "images/logo.jpg" %}" alt="Timelord Logo" />
+</div>
+{% endblock %}

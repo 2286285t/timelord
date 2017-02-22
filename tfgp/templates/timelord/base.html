@@ -1,0 +1,40 @@
+<! DOCTYPE html>
+
+{% load staticfiles %}
+
+<html>
+	<head>
+		<title>Timelord - 
+		{% block title_block %}
+		{% endblock %}
+		</title>
+		
+		<link rel="stylesheet" href="{% static "css/base.css" %}" />
+	</head>
+	<body>
+		<div class="top">
+			{% block top_bar %}
+				<strong>This will contain mini logo on the left and user icon stuff on the right</strong><br />	
+			{% endblock %}
+		</div>
+		<div class = "middle">
+			<div class = "left">
+				{% block side_bar %}
+					<ul>
+						<li><a href="{% url 'login' %}">Login</a></li>
+						<li><a href="{% url 'register' %}">Register</a></li>
+					</ul>
+
+					<h1>Timelord</h1>
+					<div>your new way to<br /><strong>{{ boldmessage }}</strong></div>
+
+				{% endblock %}
+			</div>
+			<div class = "right">
+				{% block body_block %}
+				{% endblock %}
+			</div>
+		</div>
+
+	</body>
+</html>
