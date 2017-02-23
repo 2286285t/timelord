@@ -15,7 +15,12 @@ Welcome to your Timelord timetable, <strong>{{ username }}</strong>!<br />
 
 {% block body_block %}
 <div>
-<strong> <i class = "iname">{{ username }}</i>'s timetable will go here</strong><br />
-<img src="{% static "images/logo.jpg" %}" alt="Timelord Logo" />
+	{% if user.is_authenticated %}
+		<strong> <i class = "iname">{{ user.username }}</i>'s timetable will go here</strong><br />
+	{% endif %}
+	{% for i in days %}
+	<p>{{ i }}</p>
+	{% endfor %}
+	<img src="{% static "images/logo.jpg" %}" alt="Timelord Logo" />
 </div>
 {% endblock %}

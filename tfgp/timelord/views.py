@@ -54,8 +54,8 @@ def user_login(request):
         if user:
             if user.is_active:
                 login(request, user)
-                return render(request, 'timelord/timetable.html', {'username': username})
-                #return HttpResponseRedirect(reverse('timetable'))
+                #return render(request, 'timelord/timetable.html', {'username': username})
+                return HttpResponseRedirect(reverse('timetable'))
             else:
                 return HttpResponse("Your Timelord account is disabled.")
         else:
@@ -66,7 +66,9 @@ def user_login(request):
 
 @login_required
 def timetable(request):
-    context_dict = {'boldmessage': "manage time"}
+    days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
+    context_dict = {'boldmessage': "manage time", 'days': days}
+    print context_dict
     return render(request, 'timelord/timetable.html', context=context_dict)
 
 @login_required
