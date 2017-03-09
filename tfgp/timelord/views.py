@@ -11,6 +11,10 @@ def index(request):
     return render(request, 'timelord/index.html', context=context_dict)
     #return HttpResponse("Hi there<br /><a href='/timelord/login/'>Login</a>")
 
+def about(request):
+    response = render(request, 'timelord/about.html')
+    return response
+
 def register(request):
     registered = False
     if request.method == 'POST':
@@ -65,15 +69,72 @@ def user_login(request):
         return render(request, 'timelord/login.html', {})
 
 @login_required
-def timetable(request):
+def timetable(request, user_name):
     days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
-    context_dict = {'boldmessage': "manage time", 'days': days}
+
+    try:
+        # Try to find timetable items for given user
+        timetable_items = TimetableItem.objects.filter(owner = user_name)
+
+    context_dict = {'boldmessage': "manage time", 'days': days, 'timetable_items': timetable_items}
     print context_dict
     return render(request, 'timelord/timetable.html', context=context_dict)
+
+@login_required
+def view_account(request):
+    response = render(request, 'timelord/account.html')
+    return response
+
+@login_required
+def create_task(request):
+    form = TaskForm()
+
+    if request.method == 'POST':
+        form = TaskForm(request.POST)
+
+        # Check that form is valid
+        if form.is_valid():
+            # Save the new timetable item to the database
+            form.save(commit=True)
+            # Redirect user to index page
+            return index(request)
+        else:
+            # The supplied form contains errors, print to terminal
+            print(form.errors)
+
+    return render(request, 'timelord/create_task.html', {'form': form})
+
+@login_required
+def edit_task(request):
+    form = TaskForm()
+
+    if request.method == 'POST':
+        form = TaskForm(request.POST)
+        if form.is_valid():
+            form.save(commit=True)
+            return edit_task(request)
+        else:
+            print(form.errors)
+
+    return render(request, 'timelord/edit_task.html')
 
 @login_required
 def user_logout(request):
     logout(request)
     return HttpResponseRedirect(reverse('index'))
+
+@login_required
+def edit_categories(request):
+    form = CategoryForm()
+
+    if request.method == 'POST':
+        form = CategoryForm(request.POST)
+        if form.is_valid():
+            form.save(commit=True)
+            return edit_categories(request)
+        else:
+            print(form.errors)
+
+    return render(request, 'timelord/edit_categories.html')
 
 
