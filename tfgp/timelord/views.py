@@ -72,11 +72,14 @@ def user_login(request):
 def timetable(request, user_name):
     days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
 
-    try:
+    # TODO  un comment once we have timetable items model
+    # try:
         # Try to find timetable items for given user
-        timetable_items = TimetableItem.objects.filter(owner = user_name)
+        # timetable_items = TimetableItem.objects.filter(owner = user_name)
 
-    context_dict = {'boldmessage': "manage time", 'days': days, 'timetable_items': timetable_items}
+    # TODO uncomment once we have models
+    # context_dict = {'boldmessage': "manage time", 'days': days, 'timetable_items': timetable_items}
+    context_dict = {'boldmessage': "manage time", 'days': days}
     print context_dict
     return render(request, 'timelord/timetable.html', context=context_dict)
 
